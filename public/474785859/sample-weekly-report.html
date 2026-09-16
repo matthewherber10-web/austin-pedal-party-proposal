@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sample Weekly Report — Austin Pedal Party</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --ink: #080B18; --ink2: #0C1122; --surf: #111830; --surf2: #161E3C;
+    --coral: #FF5E57; --gold: #E7B25C; --mint: #5FD3A7;
+    --muted: #AAB0CE; --text: #EDEFF7;
+    --disp: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+
+    --grid: rgba(237,239,247,.10);
+    --baseline: rgba(237,239,247,.24);
+
+    --series-1: #FF8A5B;
+    --series-2: var(--gold);
+    --series-3: var(--mint);
+
+    --good: #5FD3A7; --good-bg: rgba(95,211,167,.14);
+    --warning: #E7B25C; --warning-bg: rgba(231,178,92,.16);
+    --serious: #FF5E57; --serious-bg: rgba(255,94,87,.14);
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ink); color: var(--text);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    margin: 0; padding: 0 0 90px; position: relative; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body:before {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(80% 50% at 50% -8%, rgba(255,94,87,.14), transparent 60%),
+      radial-gradient(60% 40% at 100% 0%, rgba(231,178,92,.08), transparent 60%);
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); position: relative; z-index: 1; }
+
+  .sample-flag {
+    margin: 0 0 26px; padding: 12px 18px; border-radius: 10px;
+    background: var(--surf); border: 1px solid rgba(231,178,92,.3); color: var(--gold);
+    font-size: 13px; font-weight: 700; text-align: center; letter-spacing: .01em;
+  }
+
+  .back-row { padding: 32px 0 0; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-weight: 700; font-size: 14px; letter-spacing: .01em; padding: 12px 22px;
+    border-radius: 100px; white-space: nowrap; text-decoration: none;
+    background: var(--ink2); color: var(--text); border: 1px solid rgba(237,239,247,.12);
+  }
+  .btn:hover { background: var(--surf); }
+
+  h1, h2, h3 { font-family: var(--disp); text-transform: uppercase; color: #fff; margin: 0; text-wrap: balance; }
+
+  header.rep-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 16px; margin-bottom: 8px; padding-bottom: 24px; border-bottom: 1px solid rgba(237,239,247,.08);
+  }
+  .rep-title { font-family: var(--disp); font-weight: 800; font-size: 1.7rem; letter-spacing: -.005em; margin: 0 0 4px; text-transform: uppercase; }
+  .rep-sub { color: var(--muted); font-size: 0.9rem; margin: 0; }
+  .rep-period { text-align: right; font-size: 0.82rem; color: var(--muted); }
+  .rep-period b { color: #fff; display: block; font-size: 0.92rem; font-family: var(--disp); text-transform: uppercase; }
+
+  h2.sec-title { font-size: 0.98rem; font-weight: 700; margin: 40px 0 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--gold); font-family: var(--sans); }
+
+  .tiles { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+  @media (max-width: 700px) { .tiles { grid-template-columns: repeat(2,1fr); } }
+  .tile { background: var(--ink2); border-radius: 12px; padding: 16px 18px; }
+  .tile .label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .tile .value { font-family: var(--disp); font-weight: 800; font-size: 1.6rem; letter-spacing: -0.01em; color: #fff; }
+  .tile .delta { font-size: 0.78rem; margin-top: 4px; font-weight: 600; }
+  .delta.up { color: var(--mint); }
+  .delta.down { color: var(--coral); }
+
+  .chart-card { background: var(--ink2); border-radius: 12px; padding: 20px 22px; }
+  .chart-card .chead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .chart-card .ctitle { font-weight: 700; font-size: 0.92rem; color: #fff; }
+  .chart-card .cnote { font-size: 0.78rem; color: var(--muted); }
+  svg text { font-family: var(--sans); }
+  .axis-label { fill: var(--muted); font-size: 10px; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .baseline-line { stroke: var(--baseline); stroke-width: 1; }
+
+  .bar-row { display: flex; align-items: center; gap: 12px; margin: 10px 0; }
+  .bar-label { width: 96px; font-size: 0.83rem; color: var(--muted); flex-shrink: 0; }
+  .bar-track { flex: 1; background: rgba(237,239,247,.08); border-radius: 3px; height: 20px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-val { width: 50px; text-align: right; font-size: 0.85rem; font-variant-numeric: tabular-nums; color: #fff; flex-shrink: 0; }
+
+  .legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: var(--muted); }
+  .legend-dot { width: 9px; height: 9px; border-radius: 2px; }
+
+  .table-wrap { overflow-x: auto; border-radius: 12px; background: var(--ink2); }
+  table { width: 100%; border-collapse: collapse; min-width: 520px; }
+  th, td { text-align: left; padding: 12px 18px; font-size: 0.85rem; border-bottom: 1px solid rgba(237,239,247,.07); }
+  th { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+  td { color: var(--text); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .status-chip {
+    display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px;
+    border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+  }
+  .status-chip.good { background: var(--good-bg); color: var(--good); }
+  .status-chip.warning { background: var(--warning-bg); color: var(--warning); }
+  .status-chip.serious { background: var(--serious-bg); color: var(--coral); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .status-chip.good .status-dot { background: var(--good); }
+  .status-chip.warning .status-dot { background: var(--warning); }
+  .status-chip.serious .status-dot { background: var(--coral); }
+
+  .ship-list { display: flex; flex-direction: column; gap: 1px; background: var(--ink2); border-radius: 12px; overflow: hidden; }
+  .ship-item { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(237,239,247,.06); font-size: 0.87rem; }
+  .ship-item:last-child { border-bottom: none; }
+  .ship-item .name { color: var(--text); }
+  .ship-item .meta { color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
+
+  .heat-block { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .heat-grid { display: grid; grid-template-columns: repeat(8, 18px); grid-template-rows: repeat(4, 18px); gap: 2px; flex-shrink: 0; }
+  .heat-cell { border-radius: 2px; }
+  .heat-note { font-size: 0.87rem; color: var(--muted); max-width: 46ch; }
+  .heat-note strong { color: #fff; }
+
+  .recs { display: flex; flex-direction: column; gap: 10px; }
+  .rec-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.9rem; color: var(--text); }
+  .rec-mark { width: 18px; height: 18px; border-radius: 50%; background: var(--good-bg); color: var(--good); font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .rec-mark.next { background: var(--warning-bg); color: var(--warning); }
+
+  footer.rep-foot { margin-top: 44px; padding-top: 20px; border-top: 1px solid rgba(237,239,247,.08); font-size: 0.82rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="back-row"><a class="btn" href="./">&larr; Back to Proposal</a></div>
+
+  <div class="sample-flag" style="margin-top:24px">SAMPLE REPORT — illustrative numbers, shown to demonstrate exactly what a weekly report looks like</div>
+
+  <header class="rep-head">
+    <div>
+      <p class="rep-title">Weekly Performance Report</p>
+      <p class="rep-sub">Prepared by Matt Herbert</p>
+    </div>
+    <div class="rep-period">
+      <b>Week of Mar 2–8</b>
+      Report 6 of an ongoing series
+    </div>
+  </header>
+
+  <h2 class="sec-title">This week at a glance</h2>
+  <div class="tiles">
+    <div class="tile">
+      <div class="label">Website Sessions</div>
+      <div class="value">2,140</div>
+      <div class="delta up">&uarr; 12% vs last week</div>
+    </div>
+    <div class="tile">
+      <div class="label">Bookings</div>
+      <div class="value">19</div>
+      <div class="delta up">&uarr; 3 vs last week</div>
+    </div>
+    <div class="tile">
+      <div class="label">Site Conversion Rate</div>
+      <div class="value">0.89%</div>
+      <div class="delta up">&uarr; 0.14pt</div>
+    </div>
+    <div class="tile">
+      <div class="label">Ad Spend &rarr; Booked</div>
+      <div class="value">$38<span style="font-size:0.9rem;color:var(--muted);font-family:var(--sans)">/booking</span></div>
+      <div class="delta down">&darr; $6 vs last week</div>
+    </div>
+  </div>
+
+  <h2 class="sec-title">Traffic trend</h2>
+  <div class="chart-card">
+    <div class="chead">
+      <span class="ctitle">Sessions, last 8 weeks</span>
+      <span class="cnote">Direct + organic + paid</span>
+    </div>
+    <svg viewBox="0 0 760 200" width="100%" height="200" role="img" aria-label="Sessions trend over 8 weeks, rising from about 1,300 to 2,140">
+      <line x1="40" y1="20" x2="40" y2="160" class="baseline-line"/>
+      <line x1="40" y1="160" x2="740" y2="160" class="baseline-line"/>
+      <line x1="40" y1="90" x2="740" y2="90" class="grid-line"/>
+      <line x1="40" y1="20" x2="740" y2="20" class="grid-line"/>
+      <text x="34" y="164" text-anchor="end" class="axis-label">0</text>
+      <text x="34" y="94" text-anchor="end" class="axis-label">1.1k</text>
+      <text x="34" y="24" text-anchor="end" class="axis-label">2.2k</text>
+
+      <defs>
+        <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--series-1)" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="var(--series-1)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M 60 128 L 160 121 L 260 132 L 360 108 L 460 95 L 560 72 L 660 58 L 720 34 L 720 160 L 60 160 Z" fill="url(#areaFill)"/>
+      <path d="M 60 128 L 160 121 L 260 132 L 360 108 L 460 95 L 560 72 L 660 58 L 720 34"
+            fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="720" cy="34" r="4" fill="var(--series-1)" stroke="var(--ink2)" stroke-width="2"/>
+      <text x="700" y="24" text-anchor="end" font-size="11" font-weight="700" fill="#fff">2,140</text>
+
+      <text x="60" y="178" text-anchor="middle" class="axis-label">Wk1</text>
+      <text x="260" y="178" text-anchor="middle" class="axis-label">Wk3</text>
+      <text x="460" y="178" text-anchor="middle" class="axis-label">Wk5</text>
+      <text x="660" y="178" text-anchor="middle" class="axis-label">Wk7</text>
+      <text x="720" y="178" text-anchor="middle" class="axis-label">Wk8</text>
+    </svg>
+  </div>
+
+  <h2 class="sec-title">Where bookings came from</h2>
+  <div class="chart-card">
+    <div class="bar-row">
+      <div class="bar-label">Organic search</div>
+      <div class="bar-track"><div class="bar-fill" style="width:63%;background:var(--series-1)"></div></div>
+      <div class="bar-val">12</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Direct</div>
+      <div class="bar-track"><div class="bar-fill" style="width:26%;background:var(--series-2)"></div></div>
+      <div class="bar-val">5</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Paid ads</div>
+      <div class="bar-track"><div class="bar-fill" style="width:11%;background:var(--series-3)"></div></div>
+      <div class="bar-val">2</div>
+    </div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--series-1)"></span>Organic search — content &amp; SEO doing the heavy lifting</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--series-2)"></span>Direct — repeat &amp; word-of-mouth</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--series-3)"></span>Paid ads</span>
+    </div>
+  </div>
+
+  <h2 class="sec-title">Are the ads actually converting?</h2>
+  <p style="color:var(--muted);font-size:0.9rem;max-width:64ch;margin:0 0 14px">
+    With tracking wired correctly, every campaign below is measured against real bookings — not clicks, not impressions. This is the answer to "are we wasting ad money," every week.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Campaign</th><th class="num">Spend</th><th class="num">Clicks</th><th class="num">Bookings</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bachelorette — Search</td><td class="num">$210</td><td class="num">94</td><td class="num">4</td><td><span class="status-chip good"><span class="status-dot"></span>Converting well</span></td></tr>
+        <tr><td>Corporate Outings</td><td class="num">$180</td><td class="num">61</td><td class="num">1</td><td><span class="status-chip warning"><span class="status-dot"></span>Watch this week</span></td></tr>
+        <tr><td>Brand / Retargeting</td><td class="num">$85</td><td class="num">120</td><td class="num">2</td><td><span class="status-chip good"><span class="status-dot"></span>Converting well</span></td></tr>
+        <tr><td>Broad "party bike"</td><td class="num">$240</td><td class="num">210</td><td class="num">0</td><td><span class="status-chip serious"><span class="status-dot"></span>Losing money — recommend pausing</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec-title">Content shipped this week</h2>
+  <div class="ship-list">
+    <div class="ship-item"><span class="name">Published: "Bachelorette Weekend — The Real Itinerary"</span><span class="meta">SEO guide</span></div>
+    <div class="ship-item"><span class="name">Published: "What a Corporate Outing Actually Costs"</span><span class="meta">SEO guide</span></div>
+    <div class="ship-item"><span class="name">Refreshed pricing page with clearer per-person breakdown</span><span class="meta">Site update</span></div>
+    <div class="ship-item"><span class="name">Fixed mobile checkout button overlap on iPhone</span><span class="meta">Bug fix</span></div>
+  </div>
+
+  <h2 class="sec-title">What the heatmaps showed</h2>
+  <div class="chart-card">
+    <div class="heat-block">
+      <div class="heat-grid">
+        <div class="heat-cell" style="background:#2a2740"></div><div class="heat-cell" style="background:#3a3060"></div><div class="heat-cell" style="background:#6b3f6e"></div><div class="heat-cell" style="background:#a84a68"></div><div class="heat-cell" style="background:#d8556a"></div><div class="heat-cell" style="background:#2a2740"></div><div class="heat-cell" style="background:#332a52"></div><div class="heat-cell" style="background:#3a3060"></div>
+        <div class="heat-cell" style="background:#332a52"></div><div class="heat-cell" style="background:#a84a68"></div><div class="heat-cell" style="background:#ff5e57"></div><div class="heat-cell" style="background:#d8556a"></div><div class="heat-cell" style="background:#e7935c"></div><div class="heat-cell" style="background:#3a3060"></div><div class="heat-cell" style="background:#2a2740"></div><div class="heat-cell" style="background:#332a52"></div>
+        <div class="heat-cell" style="background:#3a3060"></div><div class="heat-cell" style="background:#6b3f6e"></div><div class="heat-cell" style="background:#d8556a"></div><div class="heat-cell" style="background:#ff5e57"></div><div class="heat-cell" style="background:#a84a68"></div><div class="heat-cell" style="background:#8a4570"></div><div class="heat-cell" style="background:#332a52"></div><div class="heat-cell" style="background:#2a2740"></div>
+        <div class="heat-cell" style="background:#2a2740"></div><div class="heat-cell" style="background:#332a52"></div><div class="heat-cell" style="background:#8a4570"></div><div class="heat-cell" style="background:#6b3f6e"></div><div class="heat-cell" style="background:#4a3660"></div><div class="heat-cell" style="background:#2a2740"></div><div class="heat-cell" style="background:#2a2740"></div><div class="heat-cell" style="background:#2a2740"></div>
+      </div>
+      <p class="heat-note">Session recordings this week showed <strong>38% of mobile visitors</strong> tapping the price on the homepage before scrolling further — it wasn't linked to anything. Made it a clickable link straight to booking. Also noticed the phone number in the header gets far more taps than the "Book Now" button on mobile — worth testing a click-to-call as the primary mobile CTA next.</p>
+    </div>
+  </div>
+
+  <h2 class="sec-title">Done this week / recommended next</h2>
+  <div class="recs">
+    <div class="rec-item"><span class="rec-mark">&check;</span><span>Paused the "Broad — party bike" ad group — it was burning $240/week for zero bookings.</span></div>
+    <div class="rec-item"><span class="rec-mark">&check;</span><span>Made the homepage price tappable straight to booking after seeing it in the heatmap.</span></div>
+    <div class="rec-item"><span class="rec-mark next">&rarr;</span><span>Recommend testing a click-to-call button as the primary mobile CTA — data shows people already tap the phone number more.</span></div>
+    <div class="rec-item"><span class="rec-mark next">&rarr;</span><span>Corporate Outings campaign is borderline — give it one more week before deciding to pause.</span></div>
+  </div>
+
+  <footer class="rep-foot">
+    This is what you'd get every week — real numbers, plain language, and a clear next step. No jargon, no guessing.
+  </footer>
+
+</div>
+
+</body>
+</html>
