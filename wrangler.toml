@@ -1,0 +1,12 @@
+name = "austin-pedal-party-proposal"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+[env.production]
+name = "austin-pedal-party-proposal"
+routes = [
+  { pattern = "austin-pedal-party-proposal.pages.dev/*", zone_name = "pages.dev" }
+]

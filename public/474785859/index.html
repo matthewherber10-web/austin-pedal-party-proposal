@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Proposal — Austin Pedal Party</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --ink: #080B18; --ink2: #0C1122; --surf: #111830; --surf2: #161E3C;
+    --coral: #FF5E57; --coral2: #FF8A5B; --gold: #E7B25C; --mint: #5FD3A7;
+    --muted: #AAB0CE; --text: #EDEFF7;
+    --disp: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ink); color: var(--text);
+    font-family: var(--sans); font-size: 16px; line-height: 1.65;
+    margin: 0; padding: 0 0 100px; position: relative; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body:before {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(80% 50% at 50% -8%, rgba(255,94,87,.16), transparent 60%),
+      radial-gradient(60% 40% at 100% 0%, rgba(231,178,92,.09), transparent 60%);
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 clamp(20px,4vw,40px); position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-family: var(--sans); font-size: 12px; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; display: inline-flex; align-items: center; gap: 12px;
+  }
+  .eyebrow:before { content: ""; width: 26px; height: 1px; background: var(--gold); }
+
+  h1, h2, h3 { font-family: var(--disp); text-transform: uppercase; color: #fff; text-wrap: balance; margin: 0; }
+  h1 { font-weight: 800; font-size: clamp(34px,7vw,58px); line-height: .95; letter-spacing: -.005em; }
+  h2 { font-weight: 800; font-size: clamp(24px,3.6vw,34px); line-height: 1; margin: .3em 0 .5em; }
+  h3 { font-weight: 700; font-size: 19px; line-height: 1.15; text-transform: none; margin: 0 0 8px; }
+
+  header.top { padding: 50px 0 48px; }
+  .doc-meta { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; }
+  h1 { margin-top: 20px; max-width: 20ch; font-size: clamp(32px, 6.5vw, 56px); }
+  .dek { font-size: 16px; color: var(--muted); max-width: 56ch; margin: 18px 0 0; line-height: 1.6; }
+
+  section { padding: 48px 0; border-top: 1px solid rgba(237,239,247,.06); }
+  section:first-of-type { border-top: none; padding-top: 0; }
+  .section-note { color: var(--muted); max-width: 62ch; margin: 0 0 28px; font-size: 15px; line-height: 1.6; }
+  p { max-width: 70ch; }
+
+  .cap-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .cap-list { grid-template-columns: 1fr; } }
+  .cap { background: var(--ink2); border-radius: 14px; padding: 24px 24px; transition: background .3s; }
+  .cap.wide { grid-column: 1 / -1; background: var(--surf); }
+  .cap:hover { background: var(--surf); }
+  .cap .k { font-family: var(--disp); font-weight: 800; font-size: 15px; letter-spacing: .04em; color: var(--coral); text-transform: uppercase; margin-bottom: 10px; }
+  .cap p { font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 0 0 8px; max-width: none; }
+  .cap p:last-child { margin-bottom: 0; }
+
+  .path-flag {
+    display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 11px;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--mint);
+    margin-bottom: 22px;
+  }
+  .path-flag:before { content: ""; width: 18px; height: 2px; background: var(--mint); }
+  .offer-list { display: flex; flex-direction: column; gap: 12px; }
+  .offer-item {
+    background: var(--ink2); border-radius: 12px; padding: 24px 26px;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: flex-start;
+    border: 1px solid rgba(237,239,247,.08); cursor: pointer; -webkit-tap-highlight-color: transparent;
+    transition: background .2s, border-color .2s;
+  }
+  .offer-item:hover { background: var(--surf); border-color: rgba(237,239,247,.14); }
+  .offer-item:has(input:checked) { background: var(--surf2); border-color: rgba(231,178,92,.5); }
+  .offer-item input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none; width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid rgba(237,239,247,.3); background: transparent; cursor: pointer; flex-shrink: 0;
+    display: grid; place-content: center; margin: 0;
+  }
+  .offer-item input[type="checkbox"]:checked {
+    background: linear-gradient(96deg, var(--coral), var(--gold)); border-color: transparent;
+  }
+  .offer-item input[type="checkbox"]:checked:after {
+    content: ""; width: 6px; height: 11px; border: solid var(--ink); border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg) translate(-1px,-1px);
+  }
+  .offer-item .step { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--mint); font-weight: 700; margin-bottom: 8px; }
+  .offer-item h3 { margin: 0 0 12px; font-size: 18px; font-weight: 700; }
+  .offer-item p { font-size: 14.5px; line-height: 1.65; color: var(--muted); margin: 0; max-width: 50ch; }
+  .offer-item ul { font-size: 14.5px; color: var(--muted); margin: 10px 0 0 0; padding-left: 18px; line-height: 1.6; }
+  .offer-item li { margin-bottom: 5px; }
+  .offer-price {
+    font-family: var(--disp); font-weight: 800; font-size: 30px; letter-spacing: -.01em;
+    white-space: nowrap; text-align: right;
+    background: linear-gradient(96deg, var(--coral), var(--gold));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .offer-price .unit { display: block; font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; -webkit-text-fill-color: var(--muted); background: none; margin-top: 4px; }
+  .offer-price .split { display: block; font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .06em; -webkit-text-fill-color: var(--gold); background: none; margin-top: 8px; }
+
+  .summary-block { padding: 32px 28px; background: var(--surf); border-radius: 12px; border: 1px solid rgba(237,239,247,.1); }
+  .summary-empty { color: var(--muted); font-size: 14px; }
+  .summary-rows { display: none; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .summary-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 14.5px; color: var(--muted); }
+  .summary-row span:last-child { color: var(--text); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .summary-divider { height: 1px; background: rgba(237,239,247,.08); margin: 6px 0; }
+  .summary-row.deposit span:last-child {
+    font-family: var(--disp); font-size: 22px; font-weight: 800;
+    background: linear-gradient(96deg, var(--coral), var(--gold));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .summary-row.monthly span:last-child { color: var(--mint); }
+  .summary-note { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(237,239,247,.1); font-size: 13.5px; color: var(--muted); }
+
+  .report-cta {
+    margin-top: 28px; padding: 28px; background: var(--surf2); border-radius: 12px; border: 1px solid rgba(237,239,247,.1);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  }
+  .report-cta p { margin: 0; font-size: 14.5px; color: var(--muted); max-width: 45ch; }
+  .report-cta h3 { margin: 0 0 6px; font-size: 17px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-weight: 700; font-size: 14px; letter-spacing: .01em; padding: 14px 26px;
+    border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    background: linear-gradient(96deg, var(--coral), var(--gold)); color: var(--ink);
+  }
+
+  footer.close { padding: 48px 0 0; text-align: center; }
+  .contact-line { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .contact-pill {
+    display: inline-flex; align-items: center; font-weight: 700; font-size: 12px;
+    padding: 8px 16px; border-radius: 100px; background: var(--ink2); color: var(--muted);
+    border: 1px solid rgba(237,239,247,.06); transition: border-color .2s;
+  }
+  .contact-pill:hover { border-color: rgba(237,239,247,.14); }
+  .payment-section { margin-top: 50px; padding: 32px 28px; background: linear-gradient(135deg, rgba(255,94,87,.08), rgba(231,178,92,.05)); border: 1px solid rgba(231,178,92,.2); border-radius: 12px; display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+  .payment-section h3 { margin: 0 0 16px; font-size: 18px; font-weight: 700; }
+  .payment-info { flex: 1; min-width: 260px; }
+  .payment-info p { margin: 10px 0; font-size: 14.5px; color: var(--muted); }
+  .payment-info a { color: var(--coral); font-weight: 700; text-decoration: underline; }
+  .qr-code { flex-shrink: 0; text-align: center; }
+  .qr-code img { width: 180px; height: 180px; border-radius: 10px; background: #fff; padding: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+  .qr-label { font-size: 11px; color: var(--muted); margin-top: 10px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <span class="eyebrow">Prepared for Austin Pedal Party</span>
+    <h1>Website &amp; Digital Marketing Proposal</h1>
+    <p class="dek">No long-term commitment. Pick what makes sense, start small, scale when you're ready.</p>
+  </header>
+
+  <section>
+    <span class="eyebrow">What You Get</span>
+    <h2>My track record — built live for Austin Bar Bike</h2>
+    <p class="section-note">Same market, same customer, same city. Everything below is real work I shipped myself. No templates, no outsourcing — exactly what I bring to your site.</p>
+
+    <div class="cap-list">
+
+      <div class="cap wide">
+        <div class="k">Hand-Coded Website You Own</div>
+        <h3>Clean HTML, no page-builder lock-in</h3>
+        <ul>
+          <li>Complete file with your entire site in HTML &mdash; you own it outright</li>
+          <li>Free GitHub backup + Cloudflare hosting (no monthly bills)</li>
+          <li>All existing page URLs stay the same &mdash; search rankings intact</li>
+          <li>Add custom features: calculators, calendars, maps, chat, review carousels</li>
+        </ul>
+      </div>
+
+      <div class="cap">
+        <div class="k">Content Machine</div>
+        <h3>1 new article per day</h3>
+        <ul>
+          <li>500 words + photos + links</li>
+          <li>Fact-checked, customer-focused</li>
+          <li>Automated &mdash; shipped on schedule</li>
+        </ul>
+      </div>
+
+      <div class="cap">
+        <div class="k">Real Conversion Tracking</div>
+        <h3>Which pages actually drive bookings</h3>
+        <ul>
+          <li>APIs pull live data from your systems</li>
+          <li>Cross-reference traffic with Singenuity bookings</li>
+          <li>Actionable answers, not dashboard screenshots</li>
+        </ul>
+      </div>
+
+      <div class="cap">
+        <div class="k">Email &amp; Campaigns</div>
+        <h3>Customer list that converts</h3>
+        <ul>
+          <li>Customer email database setup</li>
+          <li>Targeted campaigns to fill slow periods</li>
+          <li>Included in your retainer</li>
+        </ul>
+      </div>
+
+      <div class="cap">
+        <div class="k">Google Ads Management</div>
+        <h3>Keep spend efficient, ROAS high</h3>
+        <ul>
+          <li>Optimization</li>
+          <li>Bid strategy + keyword refinement</li>
+          <li>Weekly performance reports</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">The Offer</span>
+    <h2>Pick what you need, grow from there</h2>
+    <p class="section-note">Everything is 50% upfront, 50% when done. Cancel anytime. No surprises.</p>
+
+    <span class="path-flag">Start here</span>
+
+    <div class="offer-list" id="offerList">
+      <label class="offer-item featured">
+        <input type="checkbox" data-name="New site, built from your own data" data-price="500" data-type="onetime">
+        <div>
+          <div class="step">Step 1</div>
+          <h3>New site, built from your data</h3>
+          <ul>
+            <li>Give me 2 days and I'll have something good enough to start using</li>
+            <li>Uses your existing content + photos</li>
+            <li>You own the HTML code outright. Every week there will be an updated file with the website code in it.</li>
+            <li>See it before you commit</li>
+          </ul>
+        </div>
+        <div class="offer-price">$500<span class="unit">one-time</span><span class="split">$250 up &middot; $250 done</span></div>
+      </label>
+
+      <label class="offer-item">
+        <input type="checkbox" data-name="Tracking & analytics setup" data-price="300" data-type="onetime">
+        <div>
+          <div class="step">Add-on</div>
+          <h3>API setup: tracking &amp; analytics</h3>
+          <ul>
+            <li>Google Analytics + Search Console</li>
+            <li>Singenuity booking data</li>
+            <li>Microsoft Clarity heatmaps</li>
+            <li>Google Ads integration</li>
+            <li>Facebook API</li>
+            <li>All feeds into your weekly report</li>
+          </ul>
+        </div>
+        <div class="offer-price">$300<span class="unit">one-time</span><span class="split">$150 up &middot; $150 done</span></div>
+      </label>
+
+      <label class="offer-item">
+        <input type="checkbox" data-name="austinbarbike.com pointed to you" data-price="1000" data-type="onetime">
+        <div>
+          <div class="step">Add-on</div>
+          <h3>austinbarbike.com redirected</h3>
+          <ul>
+            <li>I transfer domain to you</li>
+            <li>All search traffic sent to your site</li>
+            <li>Styled as sister site to austinpedalparty.com</li>
+            <li>Keeps existing search rankings</li>
+          </ul>
+        </div>
+        <div class="offer-price">$1,000<span class="unit">one-time</span><span class="split">$500 up &middot; $500 done</span></div>
+      </label>
+
+      <label class="offer-item">
+        <input type="checkbox" data-name="Ongoing growth work & weekly reports" data-price="500" data-type="monthly">
+        <div>
+          <div class="step">Monthly &mdash; cancel anytime</div>
+          <h3>Growth work + automated reporting</h3>
+          <ul>
+            <li>1 article per day (500 words, photos)</li>
+            <li>Site optimization based on data</li>
+            <li>Google Ads management + optimization</li>
+            <li>Automated weekly performance report</li>
+          </ul>
+        </div>
+        <div class="offer-price">$500<span class="unit">/ month</span><span class="split">$250 up &middot; $250 end</span></div>
+      </label>
+    </div>
+
+    <div class="report-cta">
+      <div>
+        <h3>See a real weekly report</h3>
+        <p>Live example of what you'll get every week: traffic, conversions, ad performance, changes.</p>
+      </div>
+      <a class="btn" href="#" onclick="alert('Sample report available upon request'); return false;">View Sample &rarr;</a>
+    </div>
+  </section>
+
+  <div class="summary-block">
+    <h2 style="font-size:22px">Build Your Package</h2>
+    <p class="section-note" style="margin-bottom:14px">Check what you want above. Everything is 50/50 split.</p>
+
+    <p class="summary-empty" id="summaryEmpty">Nothing selected yet.</p>
+
+    <div class="summary-rows" id="summaryRows">
+      <div id="summaryLines"></div>
+      <div class="summary-divider"></div>
+      <div class="summary-row deposit"><span>Due today (50%)</span><span id="totalDeposit">$0</span></div>
+      <div class="summary-row" id="onetimeRemainderRow" style="display:none"><span>Due when work is done</span><span id="totalOnetimeRemainder">$0</span></div>
+      <div class="summary-row monthly" id="monthlyRow" style="display:none"><span>Due at month's end</span><span id="totalMonthlyRemainder">$0</span></div>
+    </div>
+    <p class="summary-note" id="monthlyRecurNote" style="display:none;margin-top:10px;padding-top:0;border-top:none">Every month after: same 50/50 split, ongoing.</p>
+
+    <a class="btn" id="emailBtn" href="#" style="margin-top:20px;display:none">Email Me These Selections &rarr;</a>
+
+    <p class="summary-note">Opens your email with everything pre-filled &mdash; just send it.</p>
+  </div>
+
+  <div class="payment-section">
+    <div class="payment-info">
+      <h3>Send payment to:</h3>
+      <p>Venmo: @pedicabeventspecialties</p>
+      <p>512-525-5221</p>
+      <p>matthewherber10@gmail.com</p>
+    </div>
+    <div class="qr-code">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://venmo.com/pedicabeventspecialties" alt="Venmo QR Code">
+      <div class="qr-label">Scan to pay via Venmo</div>
+    </div>
+  </div>
+
+  <footer class="close">
+    <div class="contact-line">
+      <span class="contact-pill">512-525-5221</span>
+      <span class="contact-pill">matthewherber10@gmail.com</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#offerList input[type="checkbox"]'));
+  var empty = document.getElementById('summaryEmpty');
+  var rows = document.getElementById('summaryRows');
+  var lines = document.getElementById('summaryLines');
+  var totalDepositEl = document.getElementById('totalDeposit');
+  var onetimeRemainderRow = document.getElementById('onetimeRemainderRow');
+  var totalOnetimeRemainderEl = document.getElementById('totalOnetimeRemainder');
+  var monthlyRow = document.getElementById('monthlyRow');
+  var totalMonthlyRemainderEl = document.getElementById('totalMonthlyRemainder');
+  var monthlyRecurNote = document.getElementById('monthlyRecurNote');
+  var emailBtn = document.getElementById('emailBtn');
+
+  function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+  function half(n) { return Math.round(n / 2); }
+
+  function recalc() {
+    var checked = boxes.filter(function(b) { return b.checked; });
+    if (!checked.length) {
+      empty.style.display = 'block';
+      rows.style.display = 'none';
+      monthlyRecurNote.style.display = 'none';
+      emailBtn.style.display = 'none';
+      return;
+    }
+    empty.style.display = 'none';
+    rows.style.display = 'flex';
+
+    var onetime = 0, monthly = 0;
+    lines.innerHTML = '';
+    checked.forEach(function(b) {
+      var price = parseInt(b.dataset.price, 10);
+      var type = b.dataset.type;
+      if (type === 'monthly') monthly += price; else onetime += price;
+      var row = document.createElement('div');
+      row.className = 'summary-row';
+      row.innerHTML = '<span>' + b.dataset.name + '</span><span>' + fmt(price) + (type === 'monthly' ? '/mo' : '') + '</span>';
+      lines.appendChild(row);
+    });
+
+    var onetimeHalf = half(onetime);
+    var monthlyHalf = half(monthly);
+
+    totalDepositEl.textContent = fmt(onetimeHalf + monthlyHalf);
+
+    if (onetime > 0) {
+      onetimeRemainderRow.style.display = 'flex';
+      totalOnetimeRemainderEl.textContent = fmt(onetime - onetimeHalf);
+    } else {
+      onetimeRemainderRow.style.display = 'none';
+    }
+
+    if (monthly > 0) {
+      monthlyRow.style.display = 'flex';
+      totalMonthlyRemainderEl.textContent = fmt(monthly - monthlyHalf);
+      monthlyRecurNote.style.display = 'block';
+      monthlyRecurNote.textContent = 'Every month after: ' + fmt(monthlyHalf) + ' to start, ' + fmt(monthly - monthlyHalf) + ' at month\'s end.';
+    } else {
+      monthlyRow.style.display = 'none';
+      monthlyRecurNote.style.display = 'none';
+    }
+
+    var subject = 'My selections — Austin Pedal Party proposal';
+    var body = "Hi Matt,\n\nHere's what we'd like to move forward with:\n\n";
+    checked.forEach(function(b) {
+      var price = parseInt(b.dataset.price, 10);
+      var type = b.dataset.type;
+      body += '- ' + b.dataset.name + ' — ' + fmt(price) + (type === 'monthly' ? '/mo' : '') + '\n';
+    });
+    body += '\nDue today (50%): ' + fmt(onetimeHalf + monthlyHalf);
+    if (onetime > 0) body += '\nDue when work is done: ' + fmt(onetime - onetimeHalf);
+    if (monthly > 0) {
+      body += '\nDue at month\'s end: ' + fmt(monthly - monthlyHalf);
+      body += '\nEvery month after: ' + fmt(monthlyHalf) + ' up, ' + fmt(monthly - monthlyHalf) + ' at month\'s end';
+    }
+    body += "\n\nLet's get started.";
+
+    emailBtn.href = 'mailto:rwlynch3@gmail.com?cc=pj@crescentcitysoccer.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    emailBtn.style.display = 'inline-flex';
+  }
+
+  boxes.forEach(function(b) { b.addEventListener('change', recalc); });
+  recalc();
+})();
+</script>
+
+</body>
+</html>
